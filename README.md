@@ -76,6 +76,31 @@ kubectl create -f FILE.yml
 kubectl apply -f FILE.yml
 ```
 
+## Update existing deployment with command
+```bash
+kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record
+# OR
+kubectl edit deployment/nginx-deployment --record
+```
+
+## View rollout status
+```bash
+kubectl rollout status deployment/nginx-deployment
+```
+
+## Rollback deployment to previous stable revision
+```bash
+# View previous deployment revisions
+kubectl rollout history deployment/nginx-deployment
+kubectl rollout history deployment/nginx-deployment --revision=2
+
+# Rollback to previous revision
+kubectl rollout undo deployment/nginx-deployment
+
+# Rollback to specific revision
+kubectl rollout undo deployment/nginx-deployment --to-revision=2
+```
+
 ## Rolling update deployment
 ```bash
 kubectl rolling-update DEPLOYMENT_NAME --update-period=10s -f DEPLOY.yml
