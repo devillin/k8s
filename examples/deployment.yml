@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: api
+spec:
+  selector:
+    matchLabels:
+      app: api
+      tier: frontend
+      track: stable
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: api
+        tier: frontend
+        track: stable
+    spec:
+      imagePullSecrets:
+        - name: nexus-docker-secret
+      containers:
+        - name: api
+          image: api-docker-image:1.0
+          imagePullPolicy: Always
+          envFrom:
+          - configMapRef:
+              name: api-env-configmap
+          ports:
+          - containerPort: 80
+            name: "http"
+          - containerPort: 443
+            name: "https"
+          command: [
+            "npm",
+            "start"
+            ]
