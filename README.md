@@ -66,6 +66,11 @@ Dashboard URL: Domain of the master node
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 ```
 
+## Create single instance deployment from image
+```bash
+kubectl run nginx --image=nginx
+```
+
 ## Create a new deployment from file
 ```bash
 kubectl create -f FILE.yml
