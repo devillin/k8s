@@ -106,6 +106,28 @@ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 kubectl rolling-update DEPLOYMENT_NAME --update-period=10s -f DEPLOY.yml
 ```
 
+## Scale deployment
+```bash
+kubectl scale deployment nginx-deployment --replicas=10
+
+# Horizontal pod scaling
+kubectl autoscale deployment nginx-deployment --min=3 --max=6 --cpu-percent=80
+```
+
+## Pause rollout before starting
+```bash
+# Pause rollout first
+kubectl rollout pause deployment/nginx-deployment
+
+# Make any changes as you wish
+kubectl set image deploy/nginx-deployment nginx=nginx:1.9.1
+kubectl set resources deployment nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
+...
+
+# Resume/Start rollout and apply all changes between pauses
+kubectl rollout resume deploy/nginx-deployment
+```
+
 ## Get cluster info
 ```bash
 kubectl cluster-info
