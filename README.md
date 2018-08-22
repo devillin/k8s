@@ -138,6 +138,24 @@ kubectl rollout resume deploy/nginx-deployment
 kubectl cluster-info
 ```
 
+## Expose deployment as a Service
+```bash
+kubectl expose deployment hello-world --type=NodePort --name=example-service
+kubectl expose deployment hello-world --type=LoadBalancer --name=example-service
+
+# Get NodePort exposed in the Service
+kubectl describe services example-service
+
+# Use public IP of any node in the cluster to access application
+kubectl get pods --selector="run=load-balancer-example" --output=wide
+
+# If using Minikube, get public IP from below
+# Eg: Kubernetes master is running at https://192.168.99.100:8443
+kubectl cluster-info
+
+curl http://<public-node-ip>:<node-port>
+```
+
 ## Get kubernetes cluster secret
 
 ```bash
