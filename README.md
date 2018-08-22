@@ -68,17 +68,17 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/s
 
 ## Create single instance deployment from image
 ```bash
-kubectl run nginx --image=nginx
+kubectl run nginx --image=nginx --record
 ```
 
 ## Create a new deployment from file
 ```bash
-kubectl create -f FILE.yml
+kubectl create -f FILE.yml --record
 ```
 
 ## Update existing deployment from file
 ```bash
-kubectl apply -f FILE.yml
+kubectl apply -f FILE.yml --record
 ```
 
 ## Update existing deployment with command
