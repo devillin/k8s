@@ -33,6 +33,11 @@ spec:
           envFrom:
           - configMapRef:
               name: api-env-configmap
+          env:
+          - name: DEMO_GREETING
+            value: "Hello from the environment"
+          - name: DEMO_APP
+            value: "Jenkins"
           ports:
           - containerPort: 80
             name: "http"
